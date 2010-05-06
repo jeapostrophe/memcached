@@ -1,7 +1,17 @@
 #lang racket
 (provide (all-defined-out))
 
-;; Protocol
+(define no-flags #"\x00\x00\x00\x00")
+(define empty-cas #"\0\0\0\0\0\0\0\0")
+(define key? bytes?)
+(define value? bytes?)
+(define (cas? x)
+  (and (bytes? x) (= (bytes-length x) 8)))
+; XXX
+(define uint4? exact-nonnegative-integer?)
+; XXX
+(define uint8? exact-nonnegative-integer?)
+
 (define request-magic #x80)
 (define response-magic #x81)
 

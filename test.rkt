@@ -9,7 +9,8 @@
     (dynamic-wind
      (λ () 
        (define-values (the-sp stdout stdin stderr) (subprocess (current-output-port) #f (current-error-port) "/opt/local/bin/memcached" "-p" (number->string p)))
-       (set! sp the-sp))
+       (set! sp the-sp)
+       (sleep 1))
      (λ () e ...)
      (λ () (subprocess-kill sp #t)))))
 
@@ -94,14 +95,13 @@
       (let-values ([(e-v e-cas) e])
         (set! cas e-cas)
         e-v))]
-   (with-memcacheds (#;(+ port 0) #;(+ port 1) #;(+ port 2))
+   (with-memcacheds ((+ port 0) (+ port 1) (+ port 2))
      (test
       (set! mc 
             (memcached
              "localhost" (+ port 0)
-             ;"localhost" (+ port 1)
-             ;"localhost" (+ port 2)
-             ))
+             "localhost" (+ port 1)
+             "localhost" (+ port 2)))
       (memcached-set! mc #"foo" #"bar")
       (value-1 (memcached-get mc #"foo")) => #"bar"
       

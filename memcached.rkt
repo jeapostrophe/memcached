@@ -1,6 +1,17 @@
 #lang racket
 (require "binary.rkt")
 
+(define no-flags #"\x00\x00\x00\x00")
+(define empty-cas #"\0\0\0\0\0\0\0\0")
+(define key? bytes?)
+(define value? bytes?)
+(define (cas? x)
+  (and (bytes? x) (= (bytes-length x) 8)))
+; XXX
+(define uint4? exact-nonnegative-integer?)
+; XXX
+(define uint8? exact-nonnegative-integer?)
+
 ;; Pool Interface
 (struct memcached-pool (servers))
 
@@ -19,7 +30,7 @@
   (conn from to))
 
 (define (memcached-pool-comm! mp thnk)
-  ; XXX use pool
+  ; XXX use pool, maybe by spawning threads and racing?
   (define conn (first (memcached-pool-servers mp)))
   (parameterize ([current-input-port (conn-from conn)]
                  [current-output-port (conn-to conn)])
@@ -70,5 +81,11 @@
 ;;; Interface
 (provide/contract
  [memcached-pool? (any/c . -> . boolean?)]
+ [key? (any/c . -> . boolean?)]
+ [value? (any/c . -> . boolean?)]
+ [cas? (any/c . -> . boolean?)]
+ [uint4? (any/c . -> . boolean?)]
+ [uint8? (any/c . -> . boolean?)]
+ [empty-cas cas?]
  ; XXX
  [memcached (() () #:rest list? . ->* . memcached-pool?)])

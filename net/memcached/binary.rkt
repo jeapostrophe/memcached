@@ -1,4 +1,6 @@
-#lang racket
+#lang racket/base
+(require racket/match
+         racket/list)
 (provide (all-defined-out))
 
 (define request-magic #x80)

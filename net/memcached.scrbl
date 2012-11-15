@@ -1,14 +1,12 @@
 #lang scribble/doc
-@(require (planet cce/scheme:6/planet)
-          (planet cce/scheme:6/scribble)
-          scribble/manual
-          (for-label scheme
-                     "main.rkt"))
+@(require scribble/manual
+          (for-label racket
+                     net/memcached))
 
 @title{memcached}
 @author{@(author+email "Jay McCarthy" "jay@racket-lang.org")}
 
-@defmodule/this-package[]
+@defmodule[net/memcached]
 
 This package provides an interface to @link["http://memcached.org/"]{memcached}.
 

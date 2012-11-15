@@ -1,5 +1,9 @@
-#lang racket
-(require "binary.rkt")
+#lang racket/base
+(require net/memcached/binary
+         racket/match
+         racket/list
+         racket/tcp
+         racket/contract)
 
 (define no-flags #"\x00\x00\x00\x00")
 (define empty-cas #"\0\0\0\0\0\0\0\0")

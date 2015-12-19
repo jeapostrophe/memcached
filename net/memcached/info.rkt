@@ -1,3 +1,3 @@
 #lang setup/infotab
 (define name "memcached")
-(define scribblings '(("memcached.scrbl" ())))
+(define scribblings '(("memcached.scrbl" () (net-library))))
